@@ -20,15 +20,22 @@ public class Omicron {
 		System.out.println("Digite a coluna em que a informação que sera inserida");
 		int coluna = sc.nextInt();		
 
-		for(int j = 0; j < 1024; j++)
+		/*for(int j = 0; j < 1024; j++)
 			for(int i = 0; i < 32; i++)
 				saida[j][i] = ' ';
-			
-		int ent = 0;
-		for(int i=coluna; i < entrada.length; i++)
+			*/
+		
+		saida = Arquivo.LeArquivo();
+		for(int i=0; i < entrada.length; i++)
 		{
-			saida[linha][i] = entrada[ent];
-			ent++;
+			try {
+				saida[linha][coluna + i] = entrada[i];	
+			}catch(ArrayIndexOutOfBoundsException e)
+			{
+				coluna = i * (-1);
+				linha++;
+				i--;
+			}
 		}
 		
 		Arquivo.Manipulacao(saida);

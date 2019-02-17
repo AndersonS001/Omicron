@@ -9,7 +9,6 @@ import java.util.List;
 
 public final class Arquivo {
 		static String path = "omicron.txt";
-		private static ArrayList<String> user = new ArrayList<>();
 		
 		/**
 		 * Garante que o arquivo sempre exista
@@ -19,9 +18,32 @@ public final class Arquivo {
 		private static void ArquivoExiste(String path) throws IOException {
 			File arquivo = new File(path);
 			
-			if(!arquivo.exists()) 
+			if(!arquivo.exists()) {
 				arquivo.createNewFile();
+				
+				char[][] branco = new char[1024][32];
+				for(int j = 0; j < 1024; j++)
+					for(int i = 0; i < 32; i++)
+						branco[j][i] = ' ';
+					Manipulacao(branco);
+			}
 		}
+		
+		public static char[][] LeArquivo() throws IOException {
+	    	ArquivoExiste(path);
+	    	char[][] ret = new char[1024][32];	
+	    	int i = 0;
+	        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+	        while (buffRead.ready()) {
+	        	char  linha[] = buffRead.readLine().toCharArray();
+	        	
+	        	ret[i] = linha;
+	        	i++;
+	        }
+	        buffRead.close();
+	        
+			return ret;
+}
 		
 		
 	    /**
