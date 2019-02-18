@@ -9,10 +9,12 @@ public class Omicron {
 		
 		Scanner sc = new Scanner(System.in);
 		char entrada[] = new char[256];
+		String texto;
 		char saida[][] = new char[1024][32];
 		
 		System.out.println("Digite em que a informação que sera inserida");
-		entrada = sc.nextLine().toCharArray();
+		texto = sc.nextLine();
+		entrada = texto.toCharArray();
 		
 		System.out.println("Digite a linha em que a informação que sera inserida");
 		int linha = sc.nextInt();
@@ -28,9 +30,20 @@ public class Omicron {
 		saida = Arquivo.LeArquivo();
 		for(int i=0; i < entrada.length; i++)
 		{
-			try {
-				saida[linha][coluna + i] = entrada[i];	
-			}catch(ArrayIndexOutOfBoundsException e)
+			try 
+			{
+				if(entrada[i] == 'b')
+				{
+					int x = Integer.parseInt(texto.replace("b", "").replace("\"",""),2);
+					saida[linha][coluna + i] = (char) x;
+					break;
+				}
+				else
+				{
+					saida[linha][coluna + i] = entrada[i];
+				}
+			}
+			catch(ArrayIndexOutOfBoundsException e)
 			{
 				coluna = i * (-1);
 				linha++;
